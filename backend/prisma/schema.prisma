@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum ProductCategory {
+  FIGURINES
+  HOME_DECOR
+  FUNCTIONAL
+  TABLETOP_GAMING
+  TECH_ACCESSORIES
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Product {
+  id          String          @id @default(uuid())
+  name        String
+  slug        String          @unique
+  description String
+  category    ProductCategory
+  priceCents  Int
+  currency    String          @default("EUR")
+  material    String
+  printTimeHours Float
+  imageEmoji  String          @default("🧊")
+  accentColor String          @default("#9CCFD8")
+  inStock     Boolean         @default(true)
+  featured    Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model CustomOrderRequest {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  description String
+  budgetCents Int?
+  fileNote    String?
+  status      String   @default("NEW")
+  createdAt   DateTime @default(now())
+}

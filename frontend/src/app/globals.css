@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf9f6;
+  --foreground: #2c2a3a;
+  --ink: #2c2a3a;
+  --ink-soft: #6f6c82;
+  --surface: #ffffff;
+  --surface-soft: #f3f1fb;
+  --border-soft: #e9e6f5;
+  --lavender: #c9b7f2;
+  --sky: #9ccfd8;
+  --peach: #f4b8a4;
+  --sand: #f6d8a8;
+  --mint: #b8d8ba;
+  --accent: #7c6cd1;
+  --accent-ink: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.bg-aurora {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(201, 183, 242, 0.35), transparent 45%),
+    radial-gradient(circle at 88% 0%, rgba(156, 207, 216, 0.35), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(246, 216, 168, 0.3), transparent 50%),
+    var(--background);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px -24px rgba(124, 108, 209, 0.25);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
