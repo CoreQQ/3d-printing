@@ -65,17 +65,13 @@ connection string for `DATABASE_URL` below.
    - `JWT_SECRET` — a long random string
    - `FRONTEND_URL` — your frontend's Vercel URL (for CORS), e.g. `https://nimbus3d.vercel.app`
    - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — owner login
-3. Deploy. The build runs `prisma generate` (via `postinstall`) and `nest build`
-   automatically; the compiled app is served through `api/index.js`, a thin
-   wrapper that boots Nest as an Express app inside a single serverless
-   function (`vercel.json` rewrites every request to it).
-4. Apply migrations and seed the production database once, from your machine,
-   pointing `DATABASE_URL` at the same Postgres instance:
-   ```bash
-   cd backend
-   DATABASE_URL="<your-prod-url>" npm run db:migrate:deploy
-   DATABASE_URL="<your-prod-url>" ADMIN_EMAIL=... ADMIN_PASSWORD=... npm run db:seed
-   ```
+3. Deploy. Vercel runs the `vercel-build` script automatically: `prisma
+   generate` (via `postinstall`), then `prisma migrate deploy`, then the
+   idempotent `db:seed` (creates/updates the admin user + sample catalog),
+   then `nest build`. The compiled app is served through `api/index.js`, a
+   thin wrapper that boots Nest as an Express app inside a single serverless
+   function (`vercel.json` rewrites every request to it). No manual database
+   step is needed — every deploy keeps the schema and seed data up to date.
 
 ### Frontend project
 
